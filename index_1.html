@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanadon Panyosook | Digital Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #181818;
+    --border: #2a2a2a;
+    --red: #2979ff;
+    --red-dim: #1a5fd4;
+    --red-glow: rgba(41,121,255,0.15);
+    --white: #f0f0f0;
+    --gray: #888888;
+    --light-gray: #cccccc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 280px;
+    min-height: 100vh;
+    background: var(--dark);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 24px;
+    z-index: 100;
+  }
+
+  .avatar-wrap {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--red);
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+
+  .sidebar-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-role {
+    background: var(--red-glow);
+    border: 1px solid var(--red);
+    color: var(--red);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 28px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .sidebar-info {
+    width: 100%;
+    margin-bottom: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .info-row {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: var(--light-gray);
+  }
+
+  .info-icon {
+    width: 28px; height: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+
+  .sidebar-divider {
+    width: 100%; height: 1px;
+    background: var(--border);
+    margin: 4px 0 20px;
+  }
+
+  /* NAV */
+  nav { width: 100%; }
+  nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 13px; font-weight: 500;
+    transition: all 0.2s;
+    margin-bottom: 4px;
+  }
+  nav a:hover, nav a.active {
+    background: var(--red-glow);
+    color: var(--red);
+    border-left: 2px solid var(--red);
+    padding-left: 12px;
+  }
+  nav a span.nav-icon { font-size: 15px; }
+
+  /* ===== MAIN CONTENT ===== */
+  .main {
+    margin-left: 280px;
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 900px;
+  }
+
+  /* SECTIONS */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* SECTION HEADER */
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .section-title span { color: var(--red); }
+  .title-bar {
+    width: 40px; height: 3px;
+    background: var(--red);
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-intro {
+    font-size: 14px; line-height: 1.9;
+    color: var(--light-gray);
+    margin-bottom: 36px;
+    max-width: 620px;
+  }
+
+  .what-doing {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 36px;
+  }
+
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .service-card:hover { border-color: var(--red); }
+
+  .service-icon {
+    font-size: 24px; margin-bottom: 10px;
+  }
+
+  .service-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .service-desc {
+    font-size: 12px; color: var(--gray); line-height: 1.6;
+  }
+
+  /* ===== RESUME ===== */
+  .resume-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  .resume-group { margin-bottom: 32px; }
+  .resume-group-title {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--red);
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timeline-item { margin-bottom: 20px; position: relative; padding-left: 16px; }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: 0; top: 6px;
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+
+  .timeline-year {
+    font-size: 11px; color: var(--red);
+    font-weight: 600; letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  .timeline-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--white); margin-bottom: 2px;
+  }
+
+  .timeline-sub {
+    font-size: 12px; color: var(--gray);
+  }
+
+  /* SKILLS BAR */
+  .skill-item { margin-bottom: 14px; }
+  .skill-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--light-gray);
+    margin-bottom: 5px;
+  }
+  .skill-bar {
+    height: 4px; background: var(--border);
+    border-radius: 2px; overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%; background: var(--red);
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  /* SOFT SKILLS TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--light-gray);
+    font-size: 11px; padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  /* ===== PORTFOLIO ===== */
+  .portfolio-filter {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--gray);
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 12px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+  }
+
+  .portfolio-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .portfolio-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--red);
+  }
+
+  .portfolio-thumb {
+    height: 140px;
+    background: linear-gradient(135deg, #1a1a1a, #2a1a1a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .portfolio-info { padding: 14px; }
+  .portfolio-tag {
+    font-size: 10px; color: var(--red);
+    font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .portfolio-name {
+    font-size: 13px; font-weight: 600;
+    color: var(--white); margin-bottom: 4px;
+  }
+  .portfolio-desc {
+    font-size: 11px; color: var(--gray);
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  .contact-items { display: flex; flex-direction: column; gap: 14px; }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex; align-items: center; gap: 14px;
+    transition: border-color 0.2s;
+  }
+  .contact-card:hover { border-color: var(--red); }
+
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: var(--red-glow);
+    border: 1px solid var(--red);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 10px; color: var(--gray); margin-bottom: 2px; }
+  .contact-value { font-size: 13px; font-weight: 500; color: var(--white); }
+
+  /* FORM */
+  .contact-form { display: flex; flex-direction: column; gap: 12px; }
+  .form-input, .form-textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--white);
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--red); }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--gray); }
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .btn-send {
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-send:hover { background: var(--red-dim); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .sidebar { width: 100%; min-height: auto; position: relative; }
+    .main { margin-left: 0; padding: 24px 20px; }
+    body { flex-direction: column; }
+    .services-grid, .resume-col, .portfolio-grid, .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="avatar-wrap">👤</div>
+  <div class="sidebar-name">Thanadon Panyosook</div>
+  <div class="sidebar-role">Digital Marketing</div>
+
+  <div class="sidebar-info">
+    <div class="info-row">
+      <div class="info-icon">📧</div>
+      <span>pondthanadon@gmail.com</span>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">📱</div>
+      <span>0640428326</span>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">🎂</div>
+      <span>30 เมษายน 2545 (24 ปี)</span>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">📍</div>
+      <span>กรุงเทพมหานคร, ไทย</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <nav>
+    <a href="#" class="active" onclick="showSection('about', this)">
+      <span class="nav-icon">👋</span> About
+    </a>
+    <a href="#" onclick="showSection('resume', this)">
+      <span class="nav-icon">📄</span> Resume
+    </a>
+    <a href="#" onclick="showSection('portfolio', this)">
+      <span class="nav-icon">💼</span> Portfolio
+    </a>
+    <a href="#" onclick="showSection('contact', this)">
+      <span class="nav-icon">✉️</span> Contact
+    </a>
+  </nav>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+  <!-- ABOUT -->
+  <section id="about" class="section active">
+    <h2 class="section-title">About <span>Me</span></h2>
+    <div class="title-bar"></div>
+
+    <p class="about-intro">
+      สวัสดีครับ! ผมธนดล ปัญโญสุข สำเร็จการศึกษาด้านการตลาดจากมหาวิทยาลัยมหาสารคาม
+      มีประสบการณ์ในการดูแลร้านค้าออนไลน์บนแพลตฟอร์ม Shopee และ Lazada
+      รวมถึงการทำ Social Media Marketing และ Content Creation
+      ปัจจุบันกำลังเรียนรู้และนำ AI มาประยุกต์ใช้ในงาน Digital Marketing
+      เพื่อเพิ่มประสิทธิภาพในการทำงานและสร้างผลลัพธ์ที่ดียิ่งขึ้น
+    </p>
+
+    <p class="what-doing">สิ่งที่ผมทำได้</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🛒</div>
+        <div class="service-title">E-Commerce Management</div>
+        <div class="service-desc">ดูแลร้านค้าออนไลน์ ลงสินค้า ตอบแชท และจัดการ Order บน Shopee & Lazada</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <div class="service-title">Social Media Marketing</div>
+        <div class="service-desc">วางแผนและดำเนินการโฆษณาผ่าน Facebook, Instagram, TikTok เพื่อเพิ่ม Brand Awareness</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <div class="service-title">Content Creation</div>
+        <div class="service-desc">ตัดต่อวิดีโอสินค้าด้วย Capcut และออกแบบ Graphic ด้วย Canva สำหรับโซเชียลมีเดีย</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <div class="service-title">AI Tools Integration</div>
+        <div class="service-desc">นำ AI เช่น Claude AI และ ChatGPT มาช่วยสร้าง Content และวิเคราะห์ข้อมูลทางการตลาด</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume" class="section">
+    <h2 class="section-title">My <span>Resume</span></h2>
+    <div class="title-bar"></div>
+
+    <div class="resume-col">
+      <div>
+        <div class="resume-group">
+          <div class="resume-group-title">🎓 Education</div>
+          <div class="timeline-item">
+            <div class="timeline-year">2563 — 2567</div>
+            <div class="timeline-title">มหาวิทยาลัยมหาสารคาม</div>
+            <div class="timeline-sub">การบัญชีและการจัดการ สาขาการตลาด</div>
+            <div class="timeline-sub">GPA: 2.55 | ปริญญาตรี</div>
+          </div>
+        </div>
+
+        <div class="resume-group">
+          <div class="resume-group-title">💼 Experience</div>
+          <div class="timeline-item">
+            <div class="timeline-year">เม.ย. — มิ.ย. 2566</div>
+            <div class="timeline-title">Back-Office Staff</div>
+            <div class="timeline-sub">บริษัท จอย สปอร์ต จำกัด</div>
+            <div class="timeline-sub" style="margin-top:6px; line-height:1.6;">
+              วางแผนโฆษณา Social Media · ตอบแชทลูกค้า Shopee/Lazada · ดูแลสต๊อคสินค้า · ตัดต่อวิดีโอสินค้า
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-group">
+          <div class="resume-group-title">🌐 Language</div>
+          <div class="skill-item">
+            <div class="skill-label"><span>ภาษาอังกฤษ</span><span>TOEIC 730</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:73%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>ภาษาไทย</span><span>เจ้าของภาษา</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="resume-group">
+          <div class="resume-group-title">🛠️ My Skills</div>
+          <div class="skill-item">
+            <div class="skill-label"><span>E-Commerce (Shopee/Lazada)</span><span>65%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Social Media Marketing</span><span>60%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Content Creation (Capcut/Canva)</span><span>55%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>AI Tools (Claude/ChatGPT)</span><span>50%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Microsoft Office</span><span>45%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:45%"></div></div>
+          </div>
+        </div>
+
+        <div class="resume-group">
+          <div class="resume-group-title">💡 Soft Skills</div>
+          <div class="tags">
+            <span class="tag">ทำงานภายใต้แรงกดดัน</span>
+            <span class="tag">บริการที่ดี</span>
+            <span class="tag">ทำงานเป็นทีม</span>
+            <span class="tag">มารยาทธุรกิจ</span>
+            <span class="tag">เรียนรู้เร็ว</span>
+            <span class="tag">ตรงต่อเวลา</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="section">
+    <h2 class="section-title">My <span>Portfolio</span></h2>
+    <div class="title-bar"></div>
+
+    <div class="portfolio-filter">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">E-Commerce</button>
+      <button class="filter-btn">Content</button>
+      <button class="filter-btn">AI Projects</button>
+    </div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">🛒</div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">E-Commerce</div>
+          <div class="portfolio-name">Joy Sport Online Shop</div>
+          <div class="portfolio-desc">ดูแลร้านค้า Shopee & Lazada ตอบแชทลูกค้า ดูแลสต๊อค</div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">📱</div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">Content</div>
+          <div class="portfolio-name">Social Media Campaign</div>
+          <div class="portfolio-desc">วางแผนและดำเนินการโฆษณาสินค้ากีฬาผ่าน Facebook & Instagram</div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">🎬</div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">Content</div>
+          <div class="portfolio-name">Product Video Creation</div>
+          <div class="portfolio-desc">ตัดต่อวิดีโอสินค้า 10+ ชิ้นด้วย Capcut สำหรับ TikTok & Shopee</div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a0a0a, #2a1010);">🤖</div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">AI Projects</div>
+          <div class="portfolio-name">Portfolio Website</div>
+          <div class="portfolio-desc">สร้างเว็บไซต์ Portfolio ด้วย HTML/CSS โดยใช้ Claude AI ช่วยพัฒนา</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <h2 class="section-title">Contact <span>Me</span></h2>
+    <div class="title-bar"></div>
+
+    <div class="contact-grid">
+      <div class="contact-items">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-label">EMAIL</div>
+            <div class="contact-value">pondthanadon@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-label">PHONE</div>
+            <div class="contact-value">064-042-8326</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">LOCATION</div>
+            <div class="contact-value">จตุจักร, กรุงเทพมหานคร</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">🐙</div>
+          <div>
+            <div class="contact-label">GITHUB</div>
+            <div class="contact-value">github.com/pondthanadon</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-form">
+          <input class="form-input" type="text" placeholder="ชื่อของคุณ">
+          <input class="form-input" type="email" placeholder="อีเมล">
+          <textarea class="form-textarea" placeholder="ข้อความ..."></textarea>
+          <button class="btn-send">ส่งข้อความ 📨</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function showSection(id, el) {
+    // ซ่อนทุก section
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+    // แสดง section ที่เลือก
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    return false;
+  }
+
+  // Filter portfolio
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
